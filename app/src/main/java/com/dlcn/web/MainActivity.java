@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import android.view.KeyEvent;
+import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.widget.Toast;
 
@@ -17,7 +18,8 @@ public class MainActivity extends AppCompatActivity {
         // 设置 WebView 内容
         WebView web_view = new WebView(this);
         web_view.getSettings().setJavaScriptEnabled(true);
-        web_view.loadUrl("https://github.com/dlcnx");
+        web_view.setWebChromeClient(new WebChromeClient());
+        web_view.loadUrl("file:///android_asset/index.html");
         setContentView(web_view);
     }
 
