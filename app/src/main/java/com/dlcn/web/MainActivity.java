@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -18,8 +20,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         // 设置 WebView 内容
         WebView web_view = new WebView(this);
-        web_view.getSettings().setJavaScriptEnabled(true);
+        web_view.setWebViewClient(new WebViewClient());
         web_view.setWebChromeClient(new WebChromeClient());
+        WebSettings settings = web_view.getSettings();
+        // 启动 js 支持
+        settings.setJavaScriptEnabled(true);
+        // 允许 file 协议跨域
+        settings.setAllowFileAccessFromFileURLs(true);
+        // 显示界面
         web_view.loadUrl("file:///android_asset/index.html");
         setContentView(web_view);
     }
