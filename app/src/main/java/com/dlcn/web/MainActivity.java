@@ -1,27 +1,34 @@
 package com.dlcn.web;
 
 import androidx.appcompat.app.AppCompatActivity;
-import android.annotation.SuppressLint;
 import android.os.Bundle;
-
 import android.view.KeyEvent;
 import android.view.View;
-import android.webkit.WebChromeClient;
-import android.webkit.WebView;
 import android.widget.Toast;
 
+import org.mozilla.geckoview.GeckoRuntime;
+import org.mozilla.geckoview.GeckoSession;
+import org.mozilla.geckoview.GeckoSessionSettings;
+import org.mozilla.geckoview.GeckoView;
+
 public class MainActivity extends AppCompatActivity {
-    // 程序入口
-    @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // 设置 WebView 内容
-        WebView web_view = new WebView(this);
-        web_view.getSettings().setJavaScriptEnabled(true);
-        web_view.setWebChromeClient(new WebChromeClient());
-        web_view.loadUrl("file:///android_asset/index.html");
-        setContentView(web_view);
+        // GeckoView
+        GeckoView view = new GeckoView(this);
+        view.setAutofillEnabled(true);
+        GeckoSession session = new GeckoSession();
+        GeckoSessionSettings settings = session.getSettings();
+        // 启用 js 支持
+        settings.setAllowJavascript(true);
+        // 适配手机屏幕
+        settings.setViewportMode(GeckoSessionSettings.VIEWPORT_MODE_MOBILE);
+        // 显示内容
+        session.open(GeckoRuntime.create(this));
+        view.setSession(session);
+        session.loadUri("resource://android/assets/index.html");
+        setContentView(view);
     }
 
     // 聚焦时隐藏状态栏与底部导航栏
