@@ -8,7 +8,6 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <!--防止手机休眠-->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-
     <application
         android:hardwareAccelerated="true"
         android:allowBackup="true"
@@ -21,6 +20,11 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <service
+            android:name="com.tencent.smtt.export.external.DexClassLoaderProviderService"
+            android:label="dexopt"
+            android:process=":dexopt" >
+        </service>
         <activity
             android:name=".MainActivity"
             android:exported="true">
